@@ -89,13 +89,13 @@ public class V1 extends JFrame {
 
     String nombre = textField.getText();
 
-    // 🔴 Validamos que no se agreguen números
+    //Validamos que no se agreguen números
     if (!nombre.matches("[a-zA-Z ]+")) {
         JOptionPane.showMessageDialog(null, "Solo se permiten letras y no números en el nombre");
         return;
     }
 
-    // 🔁 Verificamos si el producto ya existe
+    //Verificamos si el producto ya existe
     for (Electrodomestico e1 : lista) {
         if (e1.getNombre().equalsIgnoreCase(nombre)) {
             JOptionPane.showMessageDialog(null, "producto repetido");
@@ -103,7 +103,7 @@ public class V1 extends JFrame {
         }
     }
 
-    // ✅ Creamos o agregamos un nuevo producto
+    //Creamos o agregamos un nuevo producto
     int id = Integer.parseInt(textField_1.getText());
     double precio = Double.parseDouble(textField_2.getText());
 
@@ -113,7 +113,7 @@ public class V1 extends JFrame {
 
     JOptionPane.showMessageDialog(null, "producto ya agregado");
 			
-	// Limpiamos los campos
+	//Limpiamos los campos
     textField.setText("");
     textField_1.setText("");
     textField_2.setText("");
