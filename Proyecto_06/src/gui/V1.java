@@ -13,6 +13,8 @@ import javax.swing.JTextArea;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import clase.Electrodomestico;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class V1 extends JFrame {
 
@@ -70,7 +72,7 @@ public class V1 extends JFrame {
 		
 		JLabel lblNewLabel_2 = new JLabel("Precio");
 		lblNewLabel_2.setBounds(10, 68, 46, 14);
-		contentPane.add(lblNewLabel_2)
+		contentPane.add(lblNewLabel_2);
 		
 		textField_2 = new JTextField();
 		textField_2.setBounds(66, 65, 86, 20);
@@ -125,6 +127,34 @@ public class V1 extends JFrame {
 		contentPane.add(btnNewButton_2);
 		
 		JButton btnNewButton_3 = new JButton("Eliminar");
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String nombreAEliminar = textField.getText().trim();
+				if (nombreAEliminar.isEmpty()) {
+			        JOptionPane.showMessageDialog(null, "Por favor, ingrese el nombre del producto a eliminar.");
+			        return;
+			    }
+				boolean encontrado = false;
+				for (int i = 0; i < lista.size(); i++) {
+			        if (lista.get(i).getNombre().equalsIgnoreCase(nombreAEliminar)) {
+			            lista.remove(i);
+			            encontrado = true;
+			            break; 
+			        }
+				}
+
+			    if (encontrado) {
+			        JOptionPane.showMessageDialog(null, "Producto eliminado exitosamente.");
+			        textField.setText("");
+			        textField_1.setText("");
+			        textField_2.setText("");
+			        
+			    } else {
+			        JOptionPane.showMessageDialog(null, "No se encontró ningún producto con ese nombre.");
+			    }
+			    }
+			
+		});
 		btnNewButton_3.setBounds(308, 101, 89, 23);
 		contentPane.add(btnNewButton_3);
 		
