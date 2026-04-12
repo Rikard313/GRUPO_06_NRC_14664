@@ -10,6 +10,9 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import clase.Electrodomestico;
 
 public class V1 extends JFrame {
 
@@ -18,6 +21,7 @@ public class V1 extends JFrame {
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
+	private ArrayList<Electrodomestico> lista = new ArrayList<>();
 
 	/**
 	 * Launch the application.
@@ -80,6 +84,41 @@ public class V1 extends JFrame {
 		JButton btnNewButton_1 = new JButton("Agregar");
 		btnNewButton_1.setBounds(110, 101, 89, 23);
 		contentPane.add(btnNewButton_1);
+		
+		btnNewButton_1.addActionListener(e -> {
+
+    String nombre = textField.getText();
+
+    // Validamos solo las letras
+    if (!nombre.matches("[a-zA-Z ]+")) {
+        JOptionPane.showMessageDialog(null, "Solo se permiten nombres de electrodomésticos");
+        return;
+    }
+
+    // Verificamos productos ya agregados o repetidos
+    for (Electrodomestico e1 : lista) {
+        if (e1.getNombre().equalsIgnoreCase(nombre)) {
+            JOptionPane.showMessageDialog(null, "producto repetido o ya agregado");
+            return;
+        }
+    }
+
+    // Insertamos producto
+    int id = Integer.parseInt(textField_1.getText());
+    double precio = Double.parseDouble(textField_2.getText());
+
+    Electrodomestico nuevo = new Electrodomestico(id, nombre, "Sin marca", precio, 1);
+
+    lista.add(nuevo);
+
+    JOptionPane.showMessageDialog(null, "producto ya agregado");
+
+    // Limpiamos los campos
+    textField.setText("");
+    textField_1.setText("");
+    textField_2.setText("");
+
+});
 		
 		JButton btnNewButton_2 = new JButton("Buscar");
 		btnNewButton_2.setBounds(209, 101, 89, 23);
