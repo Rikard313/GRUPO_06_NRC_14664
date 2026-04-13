@@ -123,6 +123,34 @@ public class V1 extends JFrame {
 });
 		
 		JButton btnNewButton_2 = new JButton("Buscar");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+		            int idBuscado = Integer.parseInt(textField_1.getText());
+
+		            boolean encontrado = false;
+
+		            for (Electrodomestico elec : lista) {
+		                if (elec.getId() == idBuscado) {
+
+		                    textField.setText(elec.getNombre());
+		                    textField_2.setText(String.valueOf(elec.getPrecio()));
+
+		                    encontrado = true;
+		                    break;
+		                }
+		            }
+
+		            if (!encontrado) {
+		                JOptionPane.showMessageDialog(null, "Producto no encontrado");
+		            }
+
+		        } catch (NumberFormatException ex) {
+		            JOptionPane.showMessageDialog(null, "Ingrese un ID válido");
+		        }
+		    }
+			}
+		);
 		btnNewButton_2.setBounds(209, 101, 89, 23);
 		contentPane.add(btnNewButton_2);
 		
