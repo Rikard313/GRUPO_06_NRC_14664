@@ -16,14 +16,15 @@ import clase.Electrodomestico;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class V1 extends JFrame {
+public class V1 extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
+	private JTextField txtNom;
+	private JTextField txtIDProd;
+	private JTextField txtPrecio;
 	private ArrayList<Electrodomestico> lista = new ArrayList<>();
+	private JButton BotonEliminar;
 
 	/**
 	 * Launch the application.
@@ -56,31 +57,35 @@ public class V1 extends JFrame {
 		lblNewLabel.setBounds(10, 11, 46, 14);
 		contentPane.add(lblNewLabel);
 		
-		textField = new JTextField();
-		textField.setBounds(66, 8, 86, 20);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		txtNom = new JTextField();
+		txtNom.setBounds(66, 8, 86, 20);
+		contentPane.add(txtNom);
+		txtNom.setColumns(10);
 		
 		JLabel lblNewLabel_1 = new JLabel("ID Producto");
 		lblNewLabel_1.setBounds(10, 41, 66, 14);
 		contentPane.add(lblNewLabel_1);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(87, 38, 86, 20);
-		contentPane.add(textField_1);
-		textField_1.setColumns(10);
+		txtIDProd = new JTextField();
+		txtIDProd.setBounds(87, 38, 86, 20);
+		contentPane.add(txtIDProd);
+		txtIDProd.setColumns(10);
 		
 		JLabel lblNewLabel_2 = new JLabel("Precio");
 		lblNewLabel_2.setBounds(10, 68, 46, 14);
 		contentPane.add(lblNewLabel_2);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(66, 65, 86, 20);
-		contentPane.add(textField_2);
-		textField_2.setColumns(10);
+		txtPrecio = new JTextField();
+		txtPrecio.setBounds(66, 65, 86, 20);
+		contentPane.add(txtPrecio);
+		txtPrecio.setColumns(10);
 		
 		JButton btnNewButton = new JButton("Reportar");
 		btnNewButton.setBounds(10, 101, 89, 23);
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		contentPane.add(btnNewButton);
 		
 		JButton btnNewButton_1 = new JButton("Agregar");
@@ -89,7 +94,7 @@ public class V1 extends JFrame {
 
 		btnNewButton_1.addActionListener(e -> {
 
-    String nombre = textField.getText();
+    String nombre = txtNom.getText();
 
     //Validamos que no se agreguen números
     if (!nombre.matches("[a-zA-Z ]+")) {
@@ -106,8 +111,8 @@ public class V1 extends JFrame {
     }
 
     //Creamos o agregamos un nuevo producto
-    int id = Integer.parseInt(textField_1.getText());
-    double precio = Double.parseDouble(textField_2.getText());
+    int id = Integer.parseInt(txtIDProd.getText());
+    double precio = Double.parseDouble(txtPrecio.getText());
 
     Electrodomestico nuevo = new Electrodomestico(id, nombre, "Sin marca", precio, 1);
 
@@ -116,25 +121,26 @@ public class V1 extends JFrame {
     JOptionPane.showMessageDialog(null, "producto ya agregado");
 			
 	//Limpiamos los campos
-    textField.setText("");
-    textField_1.setText("");
-    textField_2.setText("");
+    txtNom.setText("");
+    txtIDProd.setText("");
+    txtPrecio.setText("");
 
 });
 		
 		JButton btnNewButton_2 = new JButton("Buscar");
+		btnNewButton_2.setBounds(209, 101, 89, 23);
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-		            int idBuscado = Integer.parseInt(textField_1.getText());
+		            int idBuscado = Integer.parseInt(txtIDProd.getText());
 
 		            boolean encontrado = false;
 
 		            for (Electrodomestico elec : lista) {
 		                if (elec.getId() == idBuscado) {
 
-		                    textField.setText(elec.getNombre());
-		                    textField_2.setText(String.valueOf(elec.getPrecio()));
+		                    txtNom.setText(elec.getNombre());
+		                    txtPrecio.setText(String.valueOf(elec.getPrecio()));
 
 		                    encontrado = true;
 		                    break;
@@ -151,44 +157,25 @@ public class V1 extends JFrame {
 		    }
 			}
 		);
-		btnNewButton_2.setBounds(209, 101, 89, 23);
 		contentPane.add(btnNewButton_2);
 		
-		JButton btnNewButton_3 = new JButton("Eliminar");
-		btnNewButton_3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				String nombreAEliminar = textField.getText().trim();
-				if (nombreAEliminar.isEmpty()) {
-			        JOptionPane.showMessageDialog(null, "Por favor, ingrese el nombre del producto a eliminar.");
-			        return;
-			    }
-				boolean encontrado = false;
-				for (int i = 0; i < lista.size(); i++) {
-			        if (lista.get(i).getNombre().equalsIgnoreCase(nombreAEliminar)) {
-			            lista.remove(i);
-			            encontrado = true;
-			            break; 
-			        }
-				}
+		JTextArea txtS = new JTextArea();
+		txtS.setBounds(10, 135, 414, 145);
+		contentPane.add(txtS);
+		{
+			BotonEliminar = new JButton("Eliminar");
+			BotonEliminar.addActionListener(this);
+			BotonEliminar.setBounds(310, 101, 89, 23);
+			contentPane.add(BotonEliminar);
+		}
 
-			    if (encontrado) {
-			        JOptionPane.showMessageDialog(null, "Producto eliminado exitosamente.");
-			        textField.setText("");
-			        textField_1.setText("");
-			        textField_2.setText("");
-			        
-			    } else {
-			        JOptionPane.showMessageDialog(null, "No se encontró ningún producto con ese nombre.");
-			    }
-			    }
-			
-		});
-		btnNewButton_3.setBounds(308, 101, 89, 23);
-		contentPane.add(btnNewButton_3);
+	}
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == BotonEliminar) {
+			do_btnNewButton_3_actionPerformed(e);
+		}
+	}
+	protected void do_btnNewButton_3_actionPerformed(ActionEvent e) {
 		
-		JTextArea textArea = new JTextArea();
-		textArea.setBounds(10, 135, 414, 145);
-		contentPane.add(textArea);
-
 	}
 }
