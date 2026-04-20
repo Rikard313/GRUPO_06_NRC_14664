@@ -25,6 +25,7 @@ public class V1 extends JFrame implements ActionListener {
 	private JTextField txtPrecio;
 	private ArrayList<Electrodomestico> lista = new ArrayList<>();
 	private JButton BotonEliminar;
+	private JButton btnNewButton_3;
 
 	/**
 	 * Launch the application.
@@ -47,7 +48,7 @@ public class V1 extends JFrame implements ActionListener {
 	 */
 	public V1() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 330);
+		setBounds(100, 100, 541, 330);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -160,22 +161,61 @@ public class V1 extends JFrame implements ActionListener {
 		contentPane.add(btnNewButton_2);
 		
 		JTextArea txtS = new JTextArea();
-		txtS.setBounds(10, 135, 414, 145);
+		txtS.setBounds(10, 135, 484, 145);
 		contentPane.add(txtS);
 		{
 			BotonEliminar = new JButton("Eliminar");
-			BotonEliminar.addActionListener(this);
 			BotonEliminar.setBounds(310, 101, 89, 23);
+			BotonEliminar.addActionListener(this);
 			contentPane.add(BotonEliminar);
 		}
+		
+		btnNewButton_3 = new JButton("Modificar");
+		btnNewButton_3.addActionListener(this);
+		btnNewButton_3.setBounds(410, 102, 95, 20);
+		contentPane.add(btnNewButton_3);
 
 	}
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btnNewButton_3) {
+			do_btnNewButton_3_actionPerformed(e);
+		}
 		if (e.getSource() == BotonEliminar) {
 			do_btnNewButton_3_actionPerformed(e);
 		}
 	}
 	protected void do_btnNewButton_3_actionPerformed(ActionEvent e) {
-		
-	}
+		 try {
+		        int id = Integer.parseInt(txtIDProd.getText());
+		        String nuevoNombre = txtNom.getText();
+		        double nuevoPrecio = Double.parseDouble(txtPrecio.getText());
+
+		        boolean encontrado = false;
+
+		        for (Electrodomestico elec : lista) {
+		            if (elec.getId() == id) {
+		                elec.setNombre(nuevoNombre);
+		                elec.setPrecio(nuevoPrecio);
+
+		                JOptionPane.showMessageDialog(null,
+		                    "Producto modificado:\n" +
+		                    "ID: " + elec.getId() + "\n" +
+		                    "Nombre: " + elec.getNombre() + "\n" +
+		                    "Precio: " + elec.getPrecio());
+
+		                encontrado = true;
+		                break;
+		            }
+		        }
+
+		        if (!encontrado) {
+		            JOptionPane.showMessageDialog(null,
+		                "No se encontró un producto con el ID ingresado.");
+		        }
+
+		    } catch (NumberFormatException ex) {
+		        JOptionPane.showMessageDialog(null,
+		            "Ingrese valores válidos para ID y Precio.");
+		    }
+		}
 }
