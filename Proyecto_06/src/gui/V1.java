@@ -115,7 +115,7 @@ public class V1 extends JFrame implements ActionListener {
     int id = Integer.parseInt(txtIDProd.getText());
     double precio = Double.parseDouble(txtPrecio.getText());
 
-    Electrodomestico nuevo = new Electrodomestico(id, nombre, "Sin marca", precio, 1);
+    new Electrodomestico(id, nombre, precio);
 
     lista.add(nuevo);
 
