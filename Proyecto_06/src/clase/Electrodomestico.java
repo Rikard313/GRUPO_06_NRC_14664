@@ -7,13 +7,27 @@ public class Electrodomestico {
 	    private String marca;
 	    private double precio;
 	    private int stock;
+		public Electrodomestico (int id, String nombre){
+		this.id = id;
+    	this.nombre = nombre;
+    	this.marca = "Sin marca";
+    	this.precio = 0.0;
+    	this.stock = 0;
+		}
+		public Electrodomestico(int id, String nombre, double precio){
+		this.id = id;
+    	this.nombre = nombre;
+    	this.marca = "Sin marca";
+   	 	this.precio = precio;
+   	 	this.stock = 1;
+		}
 		public Electrodomestico(int id, String nombre, String marca, double precio, int stock) {
-			super();
-			this.id = id;
-			this.nombre = nombre;
-			this.marca = marca;
-			this.precio = precio;
-			this.stock = stock;
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.marca = marca;
+		this.precio = precio;
+		this.stock = stock;
 		}
 		public int getId() {
 			return id;
